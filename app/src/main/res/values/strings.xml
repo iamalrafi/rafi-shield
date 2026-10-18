@@ -38,6 +38,10 @@
     <string name="stat_domains">Blocked websites in list: %1$d</string>
     <string name="stat_updated">List last updated: %1$s</string>
     <string name="stat_blocked">Blocked attempts so far: %1$d</string>
+    <string name="stat_diag">Filter test: packets seen %1$d, website-name requests %2$d, other %3$d</string>
+    <string name="strict_note">If sites are not blocked on your phone (the test numbers above stay at 0 while you browse), try strict mode. It also catches phones that ask other DNS servers directly. It may stop secure-DNS features and the router admin page while it is on.</string>
+    <string name="strict_btn_off">Turn on strict mode (experimental)</string>
+    <string name="strict_btn_on">Strict mode is ON - tap to turn off</string>
     <string name="seed_only">built-in list only</string>
     <string name="nav_report">Report a betting website</string>
     <string name="nav_blocklist">Blocklist and blocked sites</string>
