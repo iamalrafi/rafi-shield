@@ -1,0 +1,102 @@
+name: Update signed blocklist
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'blocklist/manual.txt'
+      - 'blocklist/allow.txt'
+      - 'blocklist/sources.txt'
+      - 'blocklist/betting_apps.txt'
+  schedule:
+    - cron: '0 3 * * 1'   # every Monday: refresh from public lists
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blocklist
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Check signing secret
+        env:
+          BS_PRIVATE_KEY: ${{ secrets.BS_PRIVATE_KEY }}
+        run: |
+          if [ -z "$BS_PRIVATE_KEY" ]; then
+            echo "::error::Secret BS_PRIVATE_KEY is missing. Add it in Settings > Secrets and variables > Actions (see README)."
+            exit 1
+          fi
+
+      - name: Compile list tool
+        run: |
+          mkdir -p /tmp/tool
+          javac -d /tmp/tool app/src/main/java/bd/bettingshield/core/*.java tools/ListTool.java
+
+      - name: Download public gambling lists
+        run: |
+          mkdir -p /tmp/src
+          i=0
+          grep -v '^\s*#' blocklist/sources.txt | grep -v '^\s*$' | while read -r url; do
+            i=$((i+1))
+            if curl -fsSL --max-time 60 --max-filesize 8000000 "$url" -o "/tmp/src/public_$i.txt"; then
+              echo "downloaded $url"
+            else
+              echo "::warning::could not download $url - continuing without it"
+              rm -f "/tmp/src/public_$i.txt"
+            fi
+          done
+          ls -la /tmp/src
+
+      - name: Build list
+        run: |
+          java -cp /tmp/tool ListTool build /tmp/new_blocklist.txt blocklist/allow.txt blocklist/manual.txt /tmp/src/public_*.txt
+          # Safety: refuse a list that is much smaller than the current one.
+          old=$(grep -vc '^#' blocklist/blocklist.txt || true)
+          new=$(grep -vc '^#' /tmp/new_blocklist.txt || true)
+          echo "old=$old new=$new"
+          if [ "$old" -ge 100 ] && [ "$new" -lt $((old / 2)) ]; then
+            echo "::error::new list is less than half the size of the old one - refusing to publish"
+            exit 1
+          fi
+
+      - name: Sign and verify
+        env:
+          BS_PRIVATE_KEY: ${{ secrets.BS_PRIVATE_KEY }}
+        run: |
+          PUB=app/src/main/assets/list_public_key.txt
+          if ! diff -q <(grep -v '^#' /tmp/new_blocklist.txt) <(grep -v '^#' blocklist/blocklist.txt) >/dev/null; then
+            cp /tmp/new_blocklist.txt blocklist/blocklist.txt
+            echo "domain list changed"
+          fi
+          # Re-sign a file only when its current signature is missing or no longer matches.
+          for f in blocklist.txt betting_apps.txt; do
+            if ! java -cp /tmp/tool ListTool verify "blocklist/$f" "$PUB" >/dev/null 2>&1; then
+              java -cp /tmp/tool ListTool sign "blocklist/$f"
+            fi
+          done
+          java -cp /tmp/tool ListTool verify blocklist/blocklist.txt "$PUB"
+          java -cp /tmp/tool ListTool verify blocklist/betting_apps.txt "$PUB"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blocklist/blocklist.txt blocklist/blocklist.txt.sig blocklist/betting_apps.txt.sig
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "Update signed blocklist"
+            git push
+          fi
