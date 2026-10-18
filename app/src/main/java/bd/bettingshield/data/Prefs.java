@@ -23,6 +23,15 @@ public final class Prefs {
         sp(c).edit().putBoolean("protection_wanted", v).apply();
     }
 
+    /** Strict mode: also route other DNS servers (8.8.8.8, the network's own DNS) through the filter. */
+    public static boolean isStrictMode(Context c) {
+        return sp(c).getBoolean("strict_mode", false);
+    }
+
+    public static void setStrictMode(Context c, boolean v) {
+        sp(c).edit().putBoolean("strict_mode", v).apply();
+    }
+
     /** "bn" (default) or "en". */
     public static String language(Context c) {
         return sp(c).getString("lang", "bn");
