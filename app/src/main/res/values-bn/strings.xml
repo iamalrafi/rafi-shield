@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">বেটিং শিল্ড বিডি</string>
+    <string name="back">পেছনে</string>
+    <string name="never">কখনো না</string>
+    <string name="close">বন্ধ করুন</string>
+    <string name="cancel">বাতিল</string>
+    <string name="continue_">চালিয়ে যান</string>
+    <string name="working">অপেক্ষা করুন…</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_status">সুরক্ষার অবস্থা</string>
+    <string name="notif_channel_alert">সুরক্ষা সতর্কতা</string>
+    <string name="notif_active_title">বেটিং শিল্ড এই ফোনকে সুরক্ষা দিচ্ছে</string>
+    <string name="notif_active_text">পরিচিত বেটিং ওয়েবসাইট ব্লক করা হচ্ছে।</string>
+    <string name="notif_stopped_title">বেটিং সুরক্ষা বন্ধ আছে</string>
+    <string name="notif_stopped_cannot_start">সুরক্ষা চালু করা যায়নি। অ্যাপ খুলে \"চালু করুন\" চাপুন।</string>
+    <string name="notif_stopped_unexpected">সুরক্ষা হঠাৎ বন্ধ হয়ে গেছে। অ্যাপ খুলে \"চালু করুন\" চাপুন।</string>
+    <string name="notif_stopped_revoked">অন্য কোনো ভিপিএন অ্যাপ বা সিস্টেম পরিবর্তনের কারণে সুরক্ষা বন্ধ হয়েছে। অ্যাপ খুলে \"চালু করুন\" চাপুন।</string>
+    <string name="notif_stopped_permission">ভিপিএন অনুমতি আর নেই। আবার অনুমতি দিতে অ্যাপ খুলে \"চালু করুন\" চাপুন।</string>
+
+    <!-- Home -->
+    <string name="status_on">সুরক্ষা চালু আছে</string>
+    <string name="status_on_text">এই ফোনে পরিচিত বেটিং ওয়েবসাইট ব্লক করা হচ্ছে। আপনার অন্যান্য ইন্টারনেট ব্যবহারে কোনো সমস্যা হবে না।</string>
+    <string name="status_off">সুরক্ষা বন্ধ আছে</string>
+    <string name="status_off_text">এই মুহূর্তে বেটিং ওয়েবসাইট ব্লক হচ্ছে না। \"চালু করুন\" চাপুন।</string>
+    <string name="status_off_stopped">সুরক্ষা বন্ধ হয়ে গেছে। বেটিং ওয়েবসাইট ব্লক হচ্ছে না। আবার চালু করতে \"চালু করুন\" চাপুন।</string>
+    <string name="turn_on">চালু করুন</string>
+    <string name="turn_off">বন্ধ করুন</string>
+    <string name="keep_on">চালু রাখুন</string>
+    <string name="confirm_off_title">সুরক্ষা বন্ধ করবেন?</string>
+    <string name="confirm_off_message">এরপর বেটিং ওয়েবসাইট আর ব্লক হবে না। এখন যদি বাজি ধরার ইচ্ছা হচ্ছে, তাহলে সুরক্ষা চালু রাখুন এবং বিশ্বস্ত কারও সঙ্গে কথা বলুন।</string>
+    <string name="vpn_explain_title">একটি অনুমতি দরকার</string>
+    <string name="vpn_explain_message">এখন অ্যান্ড্রয়েড একটি ভিপিএন সংযোগের অনুমতি চাইবে। অ্যাপটি এটি শুধু ওয়েবসাইটের নাম যাচাই করার লোকাল ফিল্টার হিসেবে ব্যবহার করে। আপনার ইন্টারনেট ট্রাফিক কোনো সার্ভারে পাঠানো হয় না এবং এটি সম্পূর্ণ বিনামূল্যে।</string>
+    <string name="vpn_denied">অনুমতি দেওয়া হয়নি, তাই সুরক্ষা বন্ধ আছে।</string>
+    <string name="private_dns_warning">আপনার ফোনে প্রাইভেট ডিএনএস একটি নির্দিষ্ট প্রোভাইডারে সেট করা আছে। এতে ফিল্টার এড়িয়ে যেতে পারে। প্রাইভেট ডিএনএস \"বন্ধ\" বা \"অটোমেটিক\" করে দিন।</string>
+    <string name="open_network_settings">নেটওয়ার্ক সেটিংস খুলুন</string>
+    <string name="stat_domains">তালিকায় ব্লক করা ওয়েবসাইট: %1$d টি</string>
+    <string name="stat_updated">তালিকা সর্বশেষ হালনাগাদ: %1$s</string>
+    <string name="stat_blocked">এ পর্যন্ত ব্লক করা চেষ্টা: %1$d বার</string>
+    <string name="seed_only">শুধু অ্যাপের ভেতরের তালিকা</string>
+    <string name="nav_report">বেটিং ওয়েবসাইট রিপোর্ট করুন</string>
+    <string name="nav_blocklist">ব্লকলিস্ট ও ব্লক হওয়া সাইট</string>
+    <string name="nav_apps">এই ফোনে থাকা বেটিং অ্যাপ</string>
+    <string name="nav_help">সেটিংস ও সাহায্য</string>
+    <string name="honest_note">এই অ্যাপ পরিচিত বেটিং ওয়েবসাইটের নাম ব্লক করে। সব বেটিং সাইট বা অ্যাপ থামানোর নিশ্চয়তা এটি দিতে পারে না: নতুন সাইট, অন্য ভিপিএন অ্যাপ, প্রাইভেট ডিএনএস ও ব্রাউজারের সিকিউর ডিএনএস সেটিং এটি এড়িয়ে যেতে পারে। নতুন সাইট পেলে রিপোর্ট করুন।</string>
+
+    <!-- Report -->
+    <string name="report_title">ওয়েবসাইট রিপোর্ট</string>
+    <string name="report_intro">এমন কোনো বেটিং ওয়েবসাইট পেয়েছেন যা এখনো ব্লক হয়নি? যাচাইয়ের জন্য পাঠান। অনুমোদন পেলে সবার জন্য শেয়ার্ড তালিকায় যোগ হবে।</string>
+    <string name="report_kind_betting">এটি একটি বেটিং ওয়েবসাইট</string>
+    <string name="report_kind_false">এই ওয়েবসাইট ভুল করে ব্লক হয়েছে</string>
+    <string name="report_url_hint">ওয়েবসাইটের ঠিকানা, যেমন example.com</string>
+    <string name="report_note_hint">ছোট একটি নোট (ঐচ্ছিক)</string>
+    <string name="report_privacy">শুধু ওয়েবসাইটের ঠিকানা, আপনার নোট এবং একটি এলোমেলো রিপোর্ট নম্বর পাঠানো হয়। নাম, ফোন নম্বর বা ব্রাউজিং ইতিহাস পাঠানো হয় না।</string>
+    <string name="report_submit">রিপোর্ট পাঠান</string>
+    <string name="report_not_configured">এই সংস্করণে রিপোর্ট সার্ভিস এখনো চালু করা হয়নি, তাই রিপোর্ট পাঠানো যাবে না।</string>
+    <string name="report_mine">আমার রিপোর্ট</string>
+    <string name="report_refresh">অবস্থা হালনাগাদ করুন</string>
+    <string name="report_none">আপনি এখনো কোনো রিপোর্ট পাঠাননি।</string>
+    <string name="report_invalid">এটি সঠিক ওয়েবসাইটের ঠিকানা মনে হচ্ছে না।</string>
+    <string name="report_protected">এটি একটি সুরক্ষিত দৈনন্দিন সেবা (যেমন সার্চ ইঞ্জিন, সোশ্যাল নেটওয়ার্ক, ব্যাংক বা সরকারি সাইট), এটি ব্লক করা যাবে না।</string>
+    <string name="status_already_listed_msg">এই ওয়েবসাইট আগে থেকেই ব্লকলিস্টে আছে।</string>
+    <string name="report_not_blocked">এই ওয়েবসাইট তালিকা দ্বারা ব্লক হচ্ছে না, তাই সংশোধনের কিছু নেই।</string>
+    <string name="report_sent">রিপোর্ট পাঠানো হয়েছে। অবস্থা: %1$s</string>
+    <string name="status_pending">যাচাইয়ের অপেক্ষায়</string>
+    <string name="status_under_review">যাচাই চলছে</string>
+    <string name="status_approved">অনুমোদিত</string>
+    <string name="status_rejected">প্রত্যাখ্যাত</string>
+    <string name="status_already_listed">আগেই তালিকায় আছে</string>
+    <string name="err_generic">কিছু একটা ভুল হয়েছে। পরে আবার চেষ্টা করুন।</string>
+    <string name="err_network">ইন্টারনেট সংযোগ নেই অথবা সার্ভিসে পৌঁছানো যাচ্ছে না।</string>
+    <string name="err_rate_limited">অল্প সময়ে অনেক রিপোর্ট করা হয়েছে। পরে আবার চেষ্টা করুন।</string>
+    <string name="err_duplicate">এই ওয়েবসাইট আগেই রিপোর্ট করা হয়েছে এবং যাচাইয়ের অপেক্ষায় আছে।</string>
+
+    <!-- Blocklist -->
+    <string name="blocklist_title">ব্লকলিস্ট</string>
+    <string name="update_now">এখনই হালনাগাদ করুন</string>
+    <string name="blocklist_source_info">ইন্টারনেট থাকলে প্রায় প্রতি ১২ ঘণ্টায় তালিকা যাচাই করা হয়। নতুন তালিকা পুরোপুরি ডাউনলোড হলে এবং ডিজিটাল সিগনেচার সঠিক হলেই ব্যবহার করা হয়; নইলে আগের তালিকাই চলতে থাকে। তালিকার তথ্য আসে যাচাই করা রিপোর্ট ও পাবলিক জুয়া-ব্লকলিস্ট থেকে।</string>
+    <string name="recent_blocked">সম্প্রতি ব্লক হয়েছে</string>
+    <string name="recent_blocked_hint">শুধু ব্লক হওয়া ওয়েবসাইটের নাম মনে রাখা হয়, এই ফোনেই। বিস্তারিত দেখতে একটিতে চাপুন।</string>
+    <string name="recent_none">এখনো কিছু ব্লক হয়নি।</string>
+    <string name="clear_log">এই তালিকা মুছুন</string>
+    <string name="last_check">সর্বশেষ যাচাই: %1$s</string>
+    <string name="signature_on">ডিজিটাল সিগনেচার যাচাই: চালু (হালনাগাদ অবশ্যই সাইন করা হতে হবে)</string>
+    <string name="signature_off">ডিজিটাল সিগনেচার যাচাই: বন্ধ (হালনাগাদ শুধু HTTPS দিয়ে সুরক্ষিত)</string>
+    <string name="bundled_apps_count">তালিকায় পরিচিত বেটিং অ্যাপ: %1$d টি</string>
+    <string name="update_not_configured">এই বিল্ডে হালনাগাদের ঠিকানা সেট করা হয়নি, তাই শুধু অ্যাপের ভেতরের তালিকা ব্যবহার হচ্ছে।</string>
+    <string name="update_ok">হালনাগাদ হয়েছে। %1$s</string>
+    <string name="update_unchanged">ইতিমধ্যে সর্বশেষ তালিকা আছে।</string>
+    <string name="update_failed">হালনাগাদ ব্যর্থ হয়েছে, আগের তালিকাই ব্যবহার হচ্ছে। (%1$s)</string>
+    <string name="blocked_details">%1$s ওয়েবসাইটটি ব্লক হয়েছে কারণ এটি ব্লকলিস্টের এই এন্ট্রির সঙ্গে মেলে: %2$s\n\nএটি যদি সাধারণ কোনো ওয়েবসাইট হয় যা ব্লক হওয়ার কথা নয়, তাহলে ভুল হিসেবে রিপোর্ট করুন।</string>
+    <string name="report_false_positive">ভুল হিসেবে রিপোর্ট</string>
+
+    <!-- Apps -->
+    <string name="apps_title">বেটিং অ্যাপ</string>
+    <string name="apps_intro">পরিচিত বেটিং অ্যাপের তালিকার কোনো অ্যাপ এই ফোনে ইনস্টল করা আছে কি না, এখানে তা যাচাই করা হয়।</string>
+    <string name="apps_limit">অ্যান্ড্রয়েড সাধারণ অ্যাপকে অন্য অ্যাপ চালু হতে বাধা দিতে বা বেটিং APK ইনস্টল ঠেকাতে দেয় না। এই স্ক্রিন শুধু পরিচিত অ্যাপ শনাক্ত করতে এবং আনইনস্টল করতে সাহায্য করতে পারে। তালিকায় নেই এমন অ্যাপ পাওয়া যাবে না।</string>
+    <string name="apps_none">কোনো পরিচিত বেটিং অ্যাপ পাওয়া যায়নি (%1$d টি পরিচিত অ্যাপের সঙ্গে মিলিয়ে দেখা হয়েছে)।</string>
+    <string name="apps_found">%1$d টি বেটিং অ্যাপ পাওয়া গেছে:</string>
+    <string name="uninstall">আনইনস্টল করুন</string>
+
+    <!-- Help -->
+    <string name="help_title">সেটিংস ও সাহায্য</string>
+    <string name="switch_to_english">Switch to English</string>
+    <string name="switch_to_bangla">বাংলায় দেখুন</string>
+    <string name="help_restore_title">সুরক্ষা বন্ধ হয়ে গেলে</string>
+    <string name="help_restore_body">অ্যাপ খুলে \"চালু করুন\" চাপুন। সবচেয়ে ভালো ফলের জন্য অ্যান্ড্রয়েডের ভিপিএন সেটিংসে এই অ্যাপকে \"Always-on VPN\" হিসেবে সেট করুন। তখন অ্যান্ড্রয়েড নিজেই সুরক্ষা আবার চালু করবে। একসঙ্গে একটি ভিপিএনই চালু থাকতে পারে, তাই অন্য ভিপিএন অ্যাপ চালালে এই সুরক্ষা বন্ধ হয়ে যাবে।</string>
+    <string name="open_vpn_settings">ভিপিএন সেটিংস খুলুন</string>
+    <string name="help_battery_title">চালু রাখা (ব্যাটারি)</string>
+    <string name="help_battery_body">ভিভোসহ কিছু ফোন ব্যাটারি বাঁচাতে ব্যাকগ্রাউন্ড অ্যাপ বন্ধ করে দেয়। এই অ্যাপকে ব্যাকগ্রাউন্ডে চলার অনুমতি দিন এবং ব্যাটারি ব্যবহার \"Unrestricted\" করুন। ভিভোতে: Settings > Battery > Background power consumption management > Betting Shield BD > Allow high background power consumption; সঙ্গে Autostart চালু করুন।</string>
+    <string name="open_battery_settings">ব্যাটারি অপটিমাইজেশন তালিকা</string>
+    <string name="open_app_settings">অ্যাপ সেটিংস</string>
+    <string name="help_dns_title">প্রাইভেট ডিএনএস ও সিকিউর ডিএনএস</string>
+    <string name="help_dns_body">ফিল্টারটি ওয়েবসাইটের নাম যাচাই করে কাজ করে। ফোনের প্রাইভেট ডিএনএস কোনো প্রোভাইডারের নামে সেট থাকলে, বা ব্রাউজারে সিকিউর ডিএনএস চালু থাকলে (ক্রোম: Settings > Privacy and security > Use secure DNS), নামগুলো এখানে যাচাই হয় না। প্রাইভেট ডিএনএস \"বন্ধ/অটোমেটিক\" রাখুন এবং ব্রাউজারের ওই অপশন বন্ধ করুন।</string>
+    <string name="help_limits_title">এই অ্যাপ যা পারে না</string>
+    <string name="help_limits_body">• তালিকায় নেই এমন ওয়েবসাইট, বা সংখ্যার আইপি ঠিকানা দিয়ে খোলা সাইট এটি ব্লক করতে পারে না।\n• অন্য ভিপিএন, বদলে ফেলা প্রাইভেট ডিএনএস বা ব্রাউজারের সিকিউর ডিএনএস এটি এড়িয়ে যেতে পারে।\n• আনইনস্টল বা ফোর্স স্টপ ঠেকাতে পারে না, এবং প্রতিটি বেটিং অ্যাপ ইনস্টল বা চালু হওয়া আটকাতে পারে না।\n• শেয়ার্ড হোস্টিং ও নতুন মিরর ডোমেইনের কারণে কিছু সাইট বাদ পড়তে পারে, বিরল ক্ষেত্রে ভুল ব্লকও হতে পারে; দুটোই ঠিক করতে রিপোর্ট করুন।\n• অন্য কারও ফোনে তাঁর জ্ঞাত ও সম্মতি ছাড়া এটি ইনস্টল করা উচিত নয়।</string>
+    <string name="help_permissions_title">অনুমতিগুলোর ব্যাখ্যা</string>
+    <string name="help_permissions_body">• ভিপিএন সংযোগ: লোকাল ওয়েবসাইট-নাম ফিল্টার চালায়। এর মাধ্যমে আপনার ফোন থেকে কোনো ট্রাফিক বাইরে যায় না।\n• ইন্টারনেট: তালিকা হালনাগাদ নামায় ও রিপোর্ট পাঠায়।\n• নোটিফিকেশন: সুরক্ষা বন্ধ হলে আপনাকে জানায়।\n• বুটের সময় চালু: ফোন রিস্টার্টের পর সুরক্ষা আবার চালু করে।\n• ইনস্টল করা অ্যাপ দেখা: আপনার অ্যাপগুলো পরিচিত বেটিং অ্যাপের তালিকার সঙ্গে মেলায়, শুধু ফোনের ভেতরেই।\n• অ্যাপ আনইনস্টল: অ্যান্ড্রয়েডের সাধারণ আনইনস্টল স্ক্রিন খোলে; আপনাকে নিশ্চিত করতে হয়।</string>
+    <string name="help_privacy_title">গোপনীয়তা</string>
+    <string name="help_privacy_body">ওয়েবসাইটের নাম আপনার ফোনেই যাচাই হয়, আপলোড হয় না। শুধু সম্প্রতি ব্লক হওয়া নামগুলো আপনার ফোনে রাখা হয়, যাতে আপনি দেখতে পারেন। রিপোর্টে শুধু ওয়েবসাইটের ঠিকানা, ঐচ্ছিক নোট ও একটি এলোমেলো রিপোর্ট নম্বর যায়। আপনার ব্যাংকিং, অ্যাকাউন্ট বা অন্য ব্রাউজিংয়ের কোনো তথ্য সংগ্রহ করা হয় না।</string>
+    <string name="help_help_title">বাজি ছাড়তে সহায়তা দরকার?</string>
+    <string name="help_help_body">ব্লক করা শুধু একটি সহায়ক উপায়। বিশ্বস্ত পরিবারের সদস্য বা বন্ধুর সঙ্গে কথা বললে, এবং চিকিৎসক বা মানসিক স্বাস্থ্য বিশেষজ্ঞের (যেমন ঢাকার জাতীয় মানসিক স্বাস্থ্য ইনস্টিটিউট) পরামর্শ নিলে সুস্থ হওয়ার সম্ভাবনা অনেক বাড়ে। আপনি একা নন, সাহায্য চাওয়া ঠিক আছে।</string>
+    <string name="version_line">সংস্করণ %1$s</string>
+</resources>

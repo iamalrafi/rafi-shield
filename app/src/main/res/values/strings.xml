@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Betting Shield BD</string>
+    <string name="back">Back</string>
+    <string name="never">never</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="continue_">Continue</string>
+    <string name="working">Please wait…</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_status">Protection status</string>
+    <string name="notif_channel_alert">Protection alerts</string>
+    <string name="notif_active_title">Betting Shield is protecting this phone</string>
+    <string name="notif_active_text">Known betting websites are being blocked.</string>
+    <string name="notif_stopped_title">Betting protection is OFF</string>
+    <string name="notif_stopped_cannot_start">Protection could not start. Open the app and tap Turn on.</string>
+    <string name="notif_stopped_unexpected">Protection stopped unexpectedly. Open the app and tap Turn on.</string>
+    <string name="notif_stopped_revoked">Another VPN app or a system change turned the protection off. Open the app and tap Turn on.</string>
+    <string name="notif_stopped_permission">The VPN permission is gone. Open the app and tap Turn on to allow it again.</string>
+
+    <!-- Home -->
+    <string name="status_on">Protection is ON</string>
+    <string name="status_on_text">Known betting websites are blocked on this phone. Your other internet use is not affected.</string>
+    <string name="status_off">Protection is OFF</string>
+    <string name="status_off_text">Betting websites are NOT blocked right now. Tap Turn on.</string>
+    <string name="status_off_stopped">Protection stopped. Betting websites are NOT blocked. Tap Turn on to restore it.</string>
+    <string name="turn_on">Turn on</string>
+    <string name="turn_off">Turn off</string>
+    <string name="keep_on">Keep it on</string>
+    <string name="confirm_off_title">Turn protection off?</string>
+    <string name="confirm_off_message">Betting websites will no longer be blocked. If you are feeling the urge to bet right now, please keep protection on and talk to someone you trust.</string>
+    <string name="vpn_explain_title">One permission is needed</string>
+    <string name="vpn_explain_message">Android will now ask to allow a VPN connection. This app uses it only as a local filter on this phone to check website names. It does not send your internet traffic to any server and it is free.</string>
+    <string name="vpn_denied">Permission was not granted, so protection is off.</string>
+    <string name="private_dns_warning">Your phone has Private DNS set to a specific provider. This can bypass the filter. Set Private DNS to Off or Automatic.</string>
+    <string name="open_network_settings">Open network settings</string>
+    <string name="stat_domains">Blocked websites in list: %1$d</string>
+    <string name="stat_updated">List last updated: %1$s</string>
+    <string name="stat_blocked">Blocked attempts so far: %1$d</string>
+    <string name="seed_only">built-in list only</string>
+    <string name="nav_report">Report a betting website</string>
+    <string name="nav_blocklist">Blocklist and blocked sites</string>
+    <string name="nav_apps">Betting apps on this phone</string>
+    <string name="nav_help">Settings and help</string>
+    <string name="honest_note">This app blocks known betting website names. It cannot promise to stop every betting site or app: new sites, other VPN apps, Private DNS and secure-DNS browser settings can get around it. Keep reporting new sites.</string>
+
+    <!-- Report -->
+    <string name="report_title">Report a website</string>
+    <string name="report_intro">Found a betting website that is not blocked yet? Send it for review. After it is approved it will be added to the shared list for everyone.</string>
+    <string name="report_kind_betting">This is a betting website</string>
+    <string name="report_kind_false">This website was blocked by mistake</string>
+    <string name="report_url_hint">Website address, e.g. example.com</string>
+    <string name="report_note_hint">Short note (optional)</string>
+    <string name="report_privacy">Only the website address, your note and a random report number are sent. No name, phone number or browsing history.</string>
+    <string name="report_submit">Send report</string>
+    <string name="report_not_configured">The report service is not set up in this version yet, so reports cannot be sent.</string>
+    <string name="report_mine">My reports</string>
+    <string name="report_refresh">Refresh status</string>
+    <string name="report_none">You have not sent any report yet.</string>
+    <string name="report_invalid">That does not look like a valid website address.</string>
+    <string name="report_protected">This is a protected everyday service (for example a search engine, social network, bank or government site) and cannot be blocked.</string>
+    <string name="status_already_listed_msg">This website is already in the blocklist.</string>
+    <string name="report_not_blocked">This website is not blocked by the list, so there is nothing to correct.</string>
+    <string name="report_sent">Report sent. Status: %1$s</string>
+    <string name="status_pending">Pending review</string>
+    <string name="status_under_review">Under review</string>
+    <string name="status_approved">Approved</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="status_already_listed">Already listed</string>
+    <string name="err_generic">Something went wrong. Please try again later.</string>
+    <string name="err_network">No internet connection or the service is unreachable.</string>
+    <string name="err_rate_limited">Too many reports in a short time. Please try again later.</string>
+    <string name="err_duplicate">This website was already reported and is waiting for review.</string>
+
+    <!-- Blocklist -->
+    <string name="blocklist_title">Blocklist</string>
+    <string name="update_now">Update now</string>
+    <string name="blocklist_source_info">Lists are checked every ~12 hours when internet is available. A new list is used only if it downloads completely and its digital signature is valid; otherwise the previous list stays in use. Entries come from reviewed reports and public gambling blocklists.</string>
+    <string name="recent_blocked">Recently blocked</string>
+    <string name="recent_blocked_hint">Only blocked website names are remembered, on this phone only. Tap one for details.</string>
+    <string name="recent_none">Nothing has been blocked yet.</string>
+    <string name="clear_log">Clear this list</string>
+    <string name="last_check">Last check: %1$s</string>
+    <string name="signature_on">Digital signature check: ON (updates must be signed)</string>
+    <string name="signature_off">Digital signature check: OFF (updates are only protected by HTTPS)</string>
+    <string name="bundled_apps_count">Known betting apps in list: %1$d</string>
+    <string name="update_not_configured">The update address has not been set in this build, so only the built-in list is used.</string>
+    <string name="update_ok">Updated. %1$s</string>
+    <string name="update_unchanged">Already up to date.</string>
+    <string name="update_failed">Update failed, the previous list is still in use. (%1$s)</string>
+    <string name="blocked_details">The website name %1$s was blocked because it matches the blocklist entry: %2$s\n\nIf this is a normal website that should not be blocked, report it as a mistake.</string>
+    <string name="report_false_positive">Report as mistake</string>
+
+    <!-- Apps -->
+    <string name="apps_title">Betting apps</string>
+    <string name="apps_intro">This checks whether any app from the known betting-app list is installed on this phone.</string>
+    <string name="apps_limit">Android does not allow a normal app to stop another app from opening, or to prevent a betting APK from being installed. This screen can only detect known apps and help you uninstall them. Apps missing from the list will not be found.</string>
+    <string name="apps_none">No known betting app was found (checked against %1$d known apps).</string>
+    <string name="apps_found">Found %1$d betting app(s):</string>
+    <string name="uninstall">Uninstall</string>
+
+    <!-- Help -->
+    <string name="help_title">Settings and help</string>
+    <string name="switch_to_english">Switch to English</string>
+    <string name="switch_to_bangla">বাংলায় দেখুন</string>
+    <string name="help_restore_title">If protection stops</string>
+    <string name="help_restore_body">Open the app and tap Turn on. For the strongest result, set this app as Always-on VPN in Android VPN settings. Then Android restarts protection by itself. Only one VPN can be active at a time, so turning on another VPN app turns this protection off.</string>
+    <string name="open_vpn_settings">Open VPN settings</string>
+    <string name="help_battery_title">Keep it running (battery)</string>
+    <string name="help_battery_body">Some phones, including Vivo, stop background apps to save battery. Allow this app to run in the background and set battery use to Unrestricted. On Vivo: Settings > Battery > Background power consumption management > Betting Shield BD > Allow high background power consumption; also allow Autostart.</string>
+    <string name="open_battery_settings">Battery optimisation list</string>
+    <string name="open_app_settings">App settings</string>
+    <string name="help_dns_title">Private DNS and secure DNS</string>
+    <string name="help_dns_body">The filter works by checking website names. If your phone Private DNS is set to a provider name, or your browser has Secure DNS turned on (Chrome: Settings > Privacy and security > Use secure DNS), the names are not checked here. Use Private DNS Off/Automatic and turn the browser option off.</string>
+    <string name="help_limits_title">What this app cannot do</string>
+    <string name="help_limits_body">• It cannot block a website that is not in the list, or one reached by its numeric IP address.\n• Another VPN, a changed Private DNS or secure-DNS browser setting can bypass it.\n• It cannot stop uninstalling or force-stopping, and cannot prevent every betting app from installing or running.\n• Shared hosting and new mirror domains can cause missed sites or, rarely, a wrong block; use Report to fix both.\n• It should never be installed on another person\'s phone without their knowledge and permission.</string>
+    <string name="help_permissions_title">Permissions explained</string>
+    <string name="help_permissions_body">• VPN connection: runs the local website-name filter. No traffic leaves your phone through it.\n• Internet: downloads list updates and sends reports.\n• Notifications: tells you when protection stops.\n• Start at boot: turns protection back on after restart.\n• See installed apps: compares your apps with the known betting-app list, on the phone only.\n• Uninstall apps: opens the normal Android uninstall screen; you must confirm.</string>
+    <string name="help_privacy_title">Privacy</string>
+    <string name="help_privacy_body">Website names are checked on your phone and are not uploaded. Only recently BLOCKED names are kept, on your phone, so you can review them. A report sends only the website address, an optional note and a random report number. Nothing about your banking, accounts or other browsing is collected.</string>
+    <string name="help_help_title">Need support to stop betting?</string>
+    <string name="help_help_body">Blocking is only a tool. Talking to a trusted family member or friend, and to a doctor or mental-health professional (for example at the National Institute of Mental Health in Dhaka), makes recovery far more likely. You are not alone and it is okay to ask for help.</string>
+    <string name="version_line">Version %1$s</string>
+</resources>

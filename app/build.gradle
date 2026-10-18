@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'bd.bettingshield'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'bd.bettingshield'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.1.0'
+
+        def base = (project.findProperty('blocklistBase') ?: '').toString()
+        def report = (project.findProperty('reportEndpoint') ?: '').toString()
+        buildConfigField 'String', 'BLOCKLIST_BASE', "\"${base}\""
+        buildConfigField 'String', 'REPORT_ENDPOINT', "\"${report}\""
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    // A stable signing key (from GitHub secrets) lets the phone install updates over older versions.
+    // Without it, the build falls back to the automatic debug key so it still produces an installable APK.
+    signingConfigs {
+        shield {
+            def ks = System.getenv('KEYSTORE_FILE')
+            if (ks != null && !ks.isEmpty() && new File(ks).exists()) {
+                storeFile new File(ks)
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias 'shield'
+                keyPassword System.getenv('KEYSTORE_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig (signingConfigs.shield.storeFile != null ? signingConfigs.shield : signingConfigs.debug)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}

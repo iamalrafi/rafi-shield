@@ -1,0 +1,2 @@
+# Public blocklists the weekly workflow merges in (one URL per line, hosts-file or plain-domain format).
+https://raw.githubusercontent.com/blocklistproject/Lists/master/gambling.txt

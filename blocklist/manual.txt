@@ -1,0 +1,39 @@
+# Betting Shield BD - hand-maintained blocklist (one domain per line, '#' = comment).
+# Add a domain here to block it AND all its subdomains. Do not add wildcards or full URLs.
+# Services such as Google, YouTube, Facebook, banks and government sites are protected
+# and are ignored automatically even if listed by mistake.
+#
+# Well-known international betting / casino operators (starter list).
+# Bangladesh-focused sites and mirror domains should be added from reviewed user reports.
+1xbet.com
+bet365.com
+betway.com
+melbet.com
+parimatch.com
+22bet.com
+mostbet.com
+betwinner.com
+1win.com
+linebet.com
+betfair.com
+williamhill.com
+ladbrokes.com
+paddypower.com
+unibet.com
+888casino.com
+pokerstars.com
+draftkings.com
+fanduel.com
+stake.com
+bwin.com
+dafabet.com
+10bet.com
+fun88.com
+betano.com
+pinnacle.com
+betsson.com
+leovegas.com
+casumo.com
+sportybet.com
+bet9ja.com
+betking.com

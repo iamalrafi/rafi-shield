@@ -1,0 +1,34 @@
+# Betting Shield BD blocklist (generated - edit blocklist/manual.txt or allow.txt instead)
+# entries: 32
+10bet.com
+1win.com
+1xbet.com
+22bet.com
+888casino.com
+bet365.com
+bet9ja.com
+betano.com
+betfair.com
+betking.com
+betsson.com
+betway.com
+betwinner.com
+bwin.com
+casumo.com
+dafabet.com
+draftkings.com
+fanduel.com
+fun88.com
+ladbrokes.com
+leovegas.com
+linebet.com
+melbet.com
+mostbet.com
+paddypower.com
+parimatch.com
+pinnacle.com
+pokerstars.com
+sportybet.com
+stake.com
+unibet.com
+williamhill.com

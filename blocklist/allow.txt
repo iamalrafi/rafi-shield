@@ -1,0 +1,3 @@
+# Domains listed here are REMOVED from the final list (use this to fix a wrongly blocked site).
+# One domain per line. Example:
+# example-shop.com

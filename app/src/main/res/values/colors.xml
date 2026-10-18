@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#F6F7F9</color>
+    <color name="card">#FFFFFF</color>
+    <color name="divider">#E1E5EA</color>
+    <color name="primary">#0B6E4F</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="text">#14181F</color>
+    <color name="subtext">#59636F</color>
+    <color name="ok_bg">#D9F2E3</color>
+    <color name="bad_bg">#FBE0DD</color>
+    <color name="warn_bg">#FFF0C2</color>
+    <color name="bad">#B42318</color>
+    <color name="icon_bg">#0B6E4F</color>
+</resources>

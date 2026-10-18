@@ -1,0 +1,4 @@
+# Android package names of known betting apps (one per line).
+# Only add a package name after checking it on a real phone / the app store page.
+# 1xBet Android app (verify on a real device before relying on it)
+org.xbet.client1
