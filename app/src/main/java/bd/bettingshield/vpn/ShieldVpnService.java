@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Local "DNS-only" VPN. Only DNS traffic (to a fake DNS server address) enters the tunnel;
@@ -43,6 +44,11 @@ public class ShieldVpnService extends VpnService {
     private static final String VPN_DNS = "10.111.222.1";
 
     private static volatile boolean running = false;
+
+    // Test counters (shown on the home screen): what actually reaches the filter.
+    public static final AtomicLong statPackets = new AtomicLong();
+    public static final AtomicLong statDns = new AtomicLong();
+    public static final AtomicLong statOther = new AtomicLong();
 
     private ParcelFileDescriptor tun;
     private Thread reader;
@@ -130,6 +136,7 @@ public class ShieldVpnService extends VpnService {
                     .addAddress(VPN_ADDRESS, 32)
                     .addDnsServer(VPN_DNS)
                     .addRoute(VPN_DNS, 32); // only traffic to our fake DNS server enters the tunnel
+            if (Prefs.isStrictMode(this)) addStrictRoutes(b);
             try {
                 b.addDisallowedApplication(getPackageName()); // our own downloads bypass the filter
             } catch (Exception ignored) {
@@ -142,12 +149,46 @@ public class ShieldVpnService extends VpnService {
         }
         if (tun == null) return false; // permission missing/revoked
 
+        statPackets.set(0);
+        statDns.set(0);
+        statOther.set(0);
         pool = Executors.newFixedThreadPool(8);
         tunOut = new FileOutputStream(tun.getFileDescriptor());
         running = true;
         reader = new Thread(this::readLoop, "vpn-reader");
         reader.start();
         return true;
+    }
+
+    /**
+     * Strict mode: some phones/browsers ask other DNS servers directly (8.8.8.8, the Wi-Fi router, the mobile
+     * operator). Routing those addresses into the tunnel lets the filter answer those queries too.
+     * Side effect: secure-DNS (DoH/DoT) to those same servers stops working while this mode is on.
+     */
+    private void addStrictRoutes(Builder b) {
+        String[] known = {"8.8.8.8", "8.8.4.4", "1.1.1.1", "1.0.0.1", "9.9.9.9", "149.112.112.112",
+                "208.67.222.222", "208.67.220.220"};
+        for (String ip : known) {
+            try {
+                b.addRoute(ip, 32);
+            } catch (Exception ignored) {
+                // skip a bad entry
+            }
+        }
+        try {
+            for (Upstream u : upstreams()) {
+                if (!(u.address instanceof Inet4Address)) continue;
+                String ip = u.address.getHostAddress();
+                if (ip == null || ip.equals(VPN_DNS)) continue;
+                try {
+                    b.addRoute(ip, 32);
+                } catch (Exception ignored) {
+                    // skip a bad entry
+                }
+            }
+        } catch (Exception ignored) {
+            // the fixed list above is still in effect
+        }
     }
 
     private void readLoop() {
@@ -158,8 +199,13 @@ public class ShieldVpnService extends VpnService {
                 int n = in.read(buf);
                 if (n < 0) break;
                 if (n == 0) continue;
+                statPackets.incrementAndGet();
                 final Ipv4Udp.Packet p = Ipv4Udp.parse(buf, n);
-                if (p == null || p.dstPort != 53) continue; // only DNS over UDP is handled
+                if (p == null || p.dstPort != 53) { // only DNS over UDP is handled
+                    statOther.incrementAndGet();
+                    continue;
+                }
+                statDns.incrementAndGet();
                 final byte[] query = new byte[p.payloadLength];
                 System.arraycopy(buf, p.payloadOffset, query, 0, p.payloadLength);
                 try {
