@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity {
     private TextView statDomains;
     private TextView statUpdated;
     private TextView statBlocked;
+    private TextView statDiag;
+    private Button strictButton;
     private TextView appsButtonHint;
 
     @Override
@@ -75,7 +77,16 @@ public class MainActivity extends BaseActivity {
         stats.addView(statDomains);
         stats.addView(statUpdated, Ui.lp(this, 6));
         stats.addView(statBlocked, Ui.lp(this, 6));
+        statDiag = Ui.text(this, "", 13, false, R.color.subtext);
+        stats.addView(statDiag, Ui.lp(this, 6));
         p.addView(stats, Ui.lp(this, 12));
+
+        // ---- strict mode (experimental) ----
+        LinearLayout strictCard = Ui.card(this);
+        strictCard.addView(Ui.text(this, getString(R.string.strict_note), 13, false, R.color.subtext));
+        strictButton = Ui.button(this, "", false, v -> onStrictToggle());
+        strictCard.addView(strictButton, Ui.lp(this, 8));
+        p.addView(strictCard, Ui.lp(this, 12));
 
         // ---- navigation ----
         p.addView(Ui.button(this, getString(R.string.nav_report), true,
@@ -135,6 +146,19 @@ public class MainActivity extends BaseActivity {
         long ok = Prefs.lastUpdateOk(this);
         statUpdated.setText(getString(R.string.stat_updated, ok == 0 ? getString(R.string.seed_only) : formatTime(ok)));
         statBlocked.setText(getString(R.string.stat_blocked, Prefs.totalBlocked(this)));
+        statDiag.setText(getString(R.string.stat_diag, ShieldVpnService.statPackets.get(),
+                ShieldVpnService.statDns.get(), ShieldVpnService.statOther.get()));
+        strictButton.setText(Prefs.isStrictMode(this) ? R.string.strict_btn_on : R.string.strict_btn_off);
+    }
+
+    private void onStrictToggle() {
+        Prefs.setStrictMode(this, !Prefs.isStrictMode(this));
+        if (ShieldVpnService.isRunning()) {
+            // Restart the filter so the new setting takes effect.
+            ShieldVpnService.stop(this);
+            handler.postDelayed(this::startProtection, 1000);
+        }
+        handler.postDelayed(this::refresh, 1300);
     }
 
     /** "Private DNS" set to a specific provider hostname bypasses a local DNS filter. */
