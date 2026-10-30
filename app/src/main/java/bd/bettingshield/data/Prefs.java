@@ -25,7 +25,8 @@ public final class Prefs {
 
     /** Strict mode: also route other DNS servers (8.8.8.8, the network's own DNS) through the filter. */
     public static boolean isStrictMode(Context c) {
-        return sp(c).getBoolean("strict_mode", false);
+        // Android 10 and older phones often ask other DNS servers directly, so default to ON there.
+        return sp(c).getBoolean("strict_mode", android.os.Build.VERSION.SDK_INT <= 29);
     }
 
     public static void setStrictMode(Context c, boolean v) {

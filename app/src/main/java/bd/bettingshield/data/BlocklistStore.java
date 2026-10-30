@@ -57,12 +57,12 @@ public final class BlocklistStore {
         File f = new File(app.getFilesDir(), LIST_FILE);
         try {
             if (!f.exists()) copyAsset(app, "blocklist_seed.txt", f);
-            MATCHER.replace(parseFile(f));
+            applyParsed(parseFile(f));
         } catch (IOException e) {
             // Corrupt file on disk: fall back to the bundled seed.
             try {
                 copyAsset(app, "blocklist_seed.txt", f);
-                MATCHER.replace(parseFile(f));
+                applyParsed(parseFile(f));
             } catch (IOException ignored) {
                 // leave whatever is in memory
             }
@@ -79,12 +79,16 @@ public final class BlocklistStore {
         loaded = true;
     }
 
-    private static Set<String> parseFile(File f) throws IOException {
+    private static DomainMatcher.Parsed parseFile(File f) throws IOException {
         try (InputStream in = new java.io.FileInputStream(f)) {
             DomainMatcher.Parsed p = DomainMatcher.parse(in);
             if (p.domains.isEmpty()) throw new IOException("empty list on disk");
-            return p.domains;
+            return p;
         }
+    }
+
+    private static void applyParsed(DomainMatcher.Parsed p) {
+        MATCHER.replace(p.domains, p.keywords, p.exceptions);
     }
 
     public static int domainCount() {
@@ -129,11 +133,12 @@ public final class BlocklistStore {
             }
             File target = new File(app.getFilesDir(), LIST_FILE);
             writeAtomically(app, d.data, target);
-            MATCHER.replace(p.domains);
+            applyParsed(p);
             Prefs.saveUpdateResult(app, true, d.etag, "updated");
 
             updateAppsQuietly(app, base, pubKey);
-            return new Result(Status.UPDATED, "Updated: " + p.domains.size() + " domains");
+            return new Result(Status.UPDATED, "Updated: " + p.domains.size() + " domains"
+                    + (p.keywords.isEmpty() ? "" : ", " + p.keywords.size() + " brand words"));
         } catch (Exception e) {
             String msg = e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage();
             Prefs.saveUpdateResult(app, false, null, "failed: " + msg);
