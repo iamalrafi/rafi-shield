@@ -66,6 +66,7 @@ public class ListTool {
             }
         }
         TreeSet<String> all = new TreeSet<>();
+        TreeSet<String> keywords = new TreeSet<>();
         for (int i = 3; i < a.length; i++) {
             File f = new File(a[i]);
             if (!f.exists()) {
@@ -75,8 +76,9 @@ public class ListTool {
             try (FileInputStream in = new FileInputStream(f)) {
                 DomainMatcher.Parsed p = DomainMatcher.parse(in);
                 all.addAll(p.domains);
-                System.out.println(a[i] + ": " + p.domains.size() + " valid, " + p.rejectedLines
-                        + " rejected, " + p.protectedSkipped + " protected/too broad skipped");
+                keywords.addAll(p.keywords);
+                System.out.println(a[i] + ": " + p.domains.size() + " valid, " + p.keywords.size() + " brand words, "
+                        + p.rejectedLines + " rejected, " + p.protectedSkipped + " protected/too broad skipped");
             }
         }
         int removed = 0;
@@ -90,8 +92,14 @@ public class ListTool {
             if (!DomainUtil.isBlockable(d)) continue; // belt and braces
             sb.append(d).append('\n');
         }
+        // Brand-word rules, and the allowed domains that those rules must never block.
+        for (String k : keywords) sb.append("kw:").append(k).append('\n');
+        if (!keywords.isEmpty()) {
+            for (String d : new TreeSet<>(allow)) sb.append("ok:").append(d).append('\n');
+        }
         Files.writeString(Path.of(out), sb.toString(), StandardCharsets.UTF_8);
-        System.out.println("wrote " + out + ": " + all.size() + " domains (" + removed + " removed by allow list)");
+        System.out.println("wrote " + out + ": " + all.size() + " domains, " + keywords.size() + " brand words ("
+                + removed + " removed by allow list)");
         if (all.isEmpty()) {
             System.err.println("refusing: result is empty");
             System.exit(1);
