@@ -44,6 +44,37 @@ public final class DomainUtil {
             "herokuapp.com", "vercel.app", "netlify.app", "web.app", "firebaseapp.com"
     ));
 
+    /** Words too generic to be used as a keyword rule: they would block normal sites. */
+    private static final Set<String> GENERIC_WORDS = new HashSet<>(Arrays.asList(
+            "casino", "betting", "poker", "sport", "sports", "sportsbook", "games", "gaming", "slots", "lotto",
+            "lottery", "gamble", "gambling", "jackpot", "bonus", "winner", "online", "bangla", "bangladesh",
+            "cricket", "football", "soccer", "wallet", "payment", "banking", "market", "service", "network",
+            "digital", "global", "premium", "mobile", "android", "download", "official", "support", "member",
+            "money", "store", "world", "india", "news", "login", "register"
+    ));
+
+    /**
+     * Whether a word may be used as a keyword rule ("kw:word" in the list).
+     * A keyword blocks every host whose name (without the final .com/.net part) contains the word, so it must be
+     * a distinctive brand name: 5-40 letters/digits/hyphens, not a generic word, and not part of any protected
+     * service's name.
+     */
+    public static boolean isValidKeyword(String k) {
+        if (k == null || k.length() < 5 || k.length() > 40) return false;
+        if (!k.matches("[a-z0-9]([a-z0-9-]*[a-z0-9])?")) return false;
+        boolean hasLetter = false;
+        for (int i = 0; i < k.length(); i++) {
+            char c = k.charAt(i);
+            if (c >= 'a' && c <= 'z') { hasLetter = true; break; }
+        }
+        if (!hasLetter) return false;
+        if (GENERIC_WORDS.contains(k)) return false;
+        for (String p : PROTECTED) {
+            if (p.contains(k)) return false;
+        }
+        return true;
+    }
+
     /** True if host equals a protected domain or is a subdomain of one. */
     public static boolean isProtected(String host) {
         if (host == null) return false;

@@ -20,18 +20,42 @@ public final class DomainMatcher {
     /** Result of parsing a list file. */
     public static final class Parsed {
         public final Set<String> domains = new HashSet<>();
+        /** Brand words ("kw:word" lines): block any host whose name contains the word. */
+        public final Set<String> keywords = new HashSet<>();
+        /** Allowed domains ("ok:domain" lines): never blocked by a keyword rule. */
+        public final Set<String> exceptions = new HashSet<>();
         public int rejectedLines = 0;
         public int protectedSkipped = 0;
     }
 
-    private volatile Set<String> domains = new HashSet<>();
+    private static final class Data {
+        final Set<String> domains;
+        final Set<String> keywords;
+        final Set<String> exceptions;
+
+        Data(Set<String> d, Set<String> k, Set<String> e) {
+            domains = d;
+            keywords = k;
+            exceptions = e;
+        }
+    }
+
+    private volatile Data data = new Data(new HashSet<>(), new HashSet<>(), new HashSet<>());
 
     public int size() {
-        return domains.size();
+        return data.domains.size();
+    }
+
+    public int keywordCount() {
+        return data.keywords.size();
     }
 
     public void replace(Set<String> newDomains) {
-        this.domains = newDomains; // atomic swap; readers never see a half-built set
+        replace(newDomains, new HashSet<>(), new HashSet<>());
+    }
+
+    public void replace(Set<String> newDomains, Set<String> newKeywords, Set<String> newExceptions) {
+        this.data = new Data(newDomains, newKeywords, newExceptions); // atomic swap; readers never see a half-built list
     }
 
     /**
@@ -46,14 +70,34 @@ public final class DomainMatcher {
         // Defence in depth: protected services are never blocked, whatever the list says.
         if (DomainUtil.isProtected(h)) return null;
 
-        Set<String> snapshot = domains;
+        Data d = data;
         String candidate = h;
         while (true) {
-            if (snapshot.contains(candidate)) return candidate;
+            if (d.domains.contains(candidate)) return candidate;
             int dot = candidate.indexOf('.');
-            if (dot < 0) return null;
+            if (dot < 0) break;
             candidate = candidate.substring(dot + 1);
         }
+        return matchKeyword(h, d);
+    }
+
+    /** Keyword rules: the host name (without its last label, e.g. .com) contains a listed brand word. */
+    private static String matchKeyword(String h, Data d) {
+        if (d.keywords.isEmpty()) return null;
+        // An explicitly allowed domain (or a subdomain of one) is never blocked by a keyword.
+        String c = h;
+        while (true) {
+            if (d.exceptions.contains(c)) return null;
+            int dot = c.indexOf('.');
+            if (dot < 0) break;
+            c = c.substring(dot + 1);
+        }
+        int last = h.lastIndexOf('.');
+        String core = last > 0 ? h.substring(0, last) : h;
+        for (String k : d.keywords) {
+            if (core.contains(k)) return "kw:" + k;
+        }
+        return null;
     }
 
     /**
@@ -69,6 +113,20 @@ public final class DomainMatcher {
             if (hash >= 0) line = line.substring(0, hash);
             line = line.trim();
             if (line.isEmpty()) continue;
+
+            String lower = line.toLowerCase(Locale.ROOT);
+            if (lower.startsWith("kw:")) {          // brand word rule
+                String k = lower.substring(3).trim();
+                if (DomainUtil.isValidKeyword(k)) result.keywords.add(k);
+                else result.rejectedLines++;
+                continue;
+            }
+            if (lower.startsWith("ok:")) {          // domain that keyword rules must not block
+                String host = DomainUtil.normalizeHost(lower.substring(3).trim());
+                if (host != null) result.exceptions.add(host);
+                else result.rejectedLines++;
+                continue;
+            }
 
             String[] parts = line.split("\\s+");
             String token;
