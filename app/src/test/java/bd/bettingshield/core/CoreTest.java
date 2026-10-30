@@ -103,6 +103,66 @@ public class CoreTest {
         assertEquals(2, p.protectedSkipped); // com.bd and google.com
     }
 
+    // ---- brand-word (keyword) rules ----
+
+    private static DomainMatcher matcherFromText(String text) throws Exception {
+        DomainMatcher.Parsed p = DomainMatcher.parse(
+                new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
+        DomainMatcher m = new DomainMatcher();
+        m.replace(p.domains, p.keywords, p.exceptions);
+        return m;
+    }
+
+    @Test public void keywordBlocksMirrorDomainsOfABrand() throws Exception {
+        DomainMatcher m = matcherFromText("example.com\nkw:brandxyz\n");
+        assertEquals("kw:brandxyz", m.match("brandxyz.com"));
+        assertEquals("kw:brandxyz", m.match("brandxyz-bd.com"));
+        assertEquals("kw:brandxyz", m.match("m.brandxyz2.live"));
+        assertEquals("kw:brandxyz", m.match("play.my-BrandXYZ.net."));
+        assertEquals("example.com", m.match("www.example.com")); // normal rules still win
+    }
+
+    @Test public void keywordDoesNotBlockUnrelatedOrProtectedHosts() throws Exception {
+        DomainMatcher m = matcherFromText("kw:brandxyz\n");
+        assertNull(m.match("brandxy.com"));
+        assertNull(m.match("example.org"));
+        assertNull(m.match("foo.brandxyz"));            // the final label (like .com) is not searched
+        assertNull(m.match("brandxyz.google.com"));      // protected services are never blocked
+        assertNull(m.match("brandxyz.gov.bd"));
+    }
+
+    @Test public void keywordAllowListExceptions() throws Exception {
+        DomainMatcher m = matcherFromText("kw:brandxyz\nok:brandxyz-help.com\n");
+        assertNull(m.match("brandxyz-help.com"));
+        assertNull(m.match("a.brandxyz-help.com"));
+        assertEquals("kw:brandxyz", m.match("brandxyz-bd.com"));
+    }
+
+    @Test public void unsafeKeywordsAreRejected() throws Exception {
+        String text = "kw:abc\n"            // too short
+                + "kw:casino\n"            // generic word
+                + "kw:facebook\n"          // part of a protected service
+                + "kw:bkash\n"             // part of a protected service
+                + "kw:bad word\n"
+                + "kw:star*star\n"
+                + "kw:\n"
+                + "kw:-brand\n"
+                + "kw:12345\n"            // no letters
+                + "kw:goodbrand\n";
+        DomainMatcher.Parsed p = DomainMatcher.parse(
+                new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
+        assertEquals(1, p.keywords.size());
+        assertTrue(p.keywords.contains("goodbrand"));
+        assertEquals(9, p.rejectedLines);
+    }
+
+    @Test public void oldListsWithoutKeywordsStillWork() throws Exception {
+        DomainMatcher m = matcherFromText("# old format\nexample.com\n");
+        assertEquals(0, m.keywordCount());
+        assertEquals("example.com", m.match("a.example.com"));
+        assertNull(m.match("brandxyz.com"));
+    }
+
     // ---- URL normalisation (used by the "report" screen) ----
 
     @Test public void normalizeHostCleansUrls() {
