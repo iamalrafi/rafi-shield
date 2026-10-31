@@ -42,6 +42,12 @@
     <string name="strict_note">If sites are not blocked on your phone (the test numbers above stay at 0 while you browse), try strict mode. It also catches phones that ask other DNS servers directly. It may stop secure-DNS features and the router admin page while it is on.</string>
     <string name="strict_btn_off">Turn on strict mode (experimental)</string>
     <string name="strict_btn_on">Strict mode is ON - tap to turn off</string>
+    <string name="browser_note">A site you opened before may still open in a browser, because the browser remembers old connections. After adding a site, tap Refresh browsers, then open the browser again. If it still opens, use the Chrome settings button: tap Force stop, and under Storage choose Clear cache.</string>
+    <string name="browser_btn_refresh">Refresh browsers</string>
+    <string name="browser_btn_chrome">Open Chrome settings (Force stop)</string>
+    <string name="browser_refreshed">Browsers refreshed (%1$d). Now open your browser again.</string>
+    <string name="browser_no_chrome">Chrome settings could not be opened.</string>
+    <string name="app_version">App version: %1$s</string>
     <string name="seed_only">built-in list only</string>
     <string name="nav_report">Report a betting website</string>
     <string name="nav_blocklist">Blocklist and blocked sites</string>
