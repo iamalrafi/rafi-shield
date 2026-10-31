@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import bd.bettingshield.BuildConfig;
 import bd.bettingshield.R;
 import bd.bettingshield.data.BlocklistStore;
 import bd.bettingshield.data.Prefs;
@@ -20,6 +21,14 @@ import bd.bettingshield.vpn.ShieldVpnService;
 import bd.bettingshield.vpn.UpdateJobService;
 
 public class MainActivity extends BaseActivity {
+
+    /** Browsers the "refresh browsers" button may close (only the ones that are installed). */
+    private static final String[] BROWSERS = {
+            "com.android.chrome", "com.chrome.beta", "com.mi.globalbrowser", "com.android.browser",
+            "org.mozilla.firefox", "com.brave.browser", "com.opera.browser", "com.opera.mini.native",
+            "com.microsoft.emmx", "com.sec.android.app.sbrowser", "com.vivaldi.browser",
+            "com.duckduckgo.mobile.android", "com.UCMobile.intl", "com.kiwibrowser.browser"
+    };
 
     private static final int REQ_VPN = 100;
     private static final int REQ_NOTIF = 101;
@@ -88,6 +97,15 @@ public class MainActivity extends BaseActivity {
         strictCard.addView(strictButton, Ui.lp(this, 8));
         p.addView(strictCard, Ui.lp(this, 12));
 
+        // ---- browser refresh ----
+        LinearLayout browserCard = Ui.card(this);
+        browserCard.addView(Ui.text(this, getString(R.string.browser_note), 13, false, R.color.subtext));
+        browserCard.addView(Ui.button(this, getString(R.string.browser_btn_refresh), false,
+                v -> refreshBrowsers()), Ui.lp(this, 8));
+        browserCard.addView(Ui.button(this, getString(R.string.browser_btn_chrome), false,
+                v -> openChromeSettings()), Ui.lp(this, 8));
+        p.addView(browserCard, Ui.lp(this, 12));
+
         // ---- navigation ----
         p.addView(Ui.button(this, getString(R.string.nav_report), true,
                 v -> startActivity(new Intent(this, ReportActivity.class))), Ui.lp(this, 16));
@@ -99,6 +117,8 @@ public class MainActivity extends BaseActivity {
                 v -> startActivity(new Intent(this, HelpActivity.class))), Ui.lp(this, 10));
 
         p.addView(Ui.text(this, getString(R.string.honest_note), 13, false, R.color.subtext), Ui.lp(this, 16));
+        p.addView(Ui.text(this, getString(R.string.app_version, BuildConfig.VERSION_NAME), 12, false,
+                R.color.subtext), Ui.lp(this, 8));
 
         if (Build.VERSION.SDK_INT >= 33
                 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -149,6 +169,37 @@ public class MainActivity extends BaseActivity {
         statDiag.setText(getString(R.string.stat_diag, ShieldVpnService.statPackets.get(),
                 ShieldVpnService.statDns.get(), ShieldVpnService.statOther.get()));
         strictButton.setText(Prefs.isStrictMode(this) ? R.string.strict_btn_on : R.string.strict_btn_off);
+    }
+
+    /** Closes browsers running in the background so they forget cached addresses and open connections. */
+    private void refreshBrowsers() {
+        android.app.ActivityManager am = (android.app.ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        int n = 0;
+        for (String pkg : BROWSERS) {
+            try {
+                getPackageManager().getPackageInfo(pkg, 0); // throws if not installed
+            } catch (Exception notInstalled) {
+                continue;
+            }
+            try {
+                if (am != null) {
+                    am.killBackgroundProcesses(pkg);
+                    n++;
+                }
+            } catch (Exception ignored) {
+                // some phones refuse; the Chrome settings button below is the manual way
+            }
+        }
+        toast(getString(R.string.browser_refreshed, n));
+    }
+
+    private void openChromeSettings() {
+        try {
+            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    android.net.Uri.parse("package:com.android.chrome")));
+        } catch (Exception e) {
+            toast(R.string.browser_no_chrome);
+        }
     }
 
     private void onStrictToggle() {
